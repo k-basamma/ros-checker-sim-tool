@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>ROS Checker UI</title></head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h2>Upload ROS Package</h2> [cite: 34]
+    <input type="file" id="ros-file">
+    <button onclick="uploadFile()">Check Code</button>
+    <hr>
+    <h3>Checker Report:</h3> [cite: 35]
+    <pre id="report" style="background: #eee; padding: 10px;"></pre>
+    <button onclick="alert('Simulation starting...')">Trigger Simulation</button> [cite: 36]
+    
+    <script>
+        async function uploadFile() {
+            let data = new FormData();
+            data.append('file', document.getElementById('ros-file').files[0]);
+            let res = await fetch('/upload', {method: 'POST', body: data});
+            let result = await res.json();
+            document.getElementById('report').innerText = JSON.stringify(result, null, 2);
+        }
+    </script>
+</body>
+</html>
